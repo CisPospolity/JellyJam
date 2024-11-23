@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -90,6 +91,7 @@ public class PlayerScript : MonoBehaviour
     public event OnExpChangedDelegate OnExpChanged;
     public delegate void OnHealthChangedDelegate(float health, float maxHealth);
     public event OnHealthChangedDelegate OnHealthChanged;
+    public event Action OnLevelUp;
 
     private void Awake()
     {
@@ -144,6 +146,7 @@ public class PlayerScript : MonoBehaviour
         level++;
         SetNextLevelCap();
         levelUpManager.ShowLevelUpOptions();
+        OnLevelUp?.Invoke();
         OnExpChanged?.Invoke(currentExp, expToNextLevel);
     }
 

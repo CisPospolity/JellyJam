@@ -8,6 +8,7 @@ public class PlayerInputManager : MonoBehaviour, PlayerInputActions.IGameplayAct
 
     public event Action<Vector2> OnMovementEvent;
     public event Action<Vector2> OnLookEvent;
+    public event Action OnUltEvent;
 
     private void Awake()
     {
@@ -42,4 +43,11 @@ public class PlayerInputManager : MonoBehaviour, PlayerInputActions.IGameplayAct
         inputs.Gameplay.Disable();
     }
 
+    public void OnUlt(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            OnUltEvent?.Invoke();
+        }
+    }
 }

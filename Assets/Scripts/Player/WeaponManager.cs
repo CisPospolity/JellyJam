@@ -17,6 +17,15 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] private WeaponBase activeStartingWeapon;
 
     public event Action<WeaponBase> OnActiveWeaponAdded;
+    public int FreeSlots
+    {
+        get
+        {
+            var count = currentActiveWeapons.Count;
+            if (activeStartingWeapon != null) count--;
+            return maxAdditionalWeapons - count;
+        }
+    }
 
     private void Start()
     {
@@ -39,7 +48,6 @@ public class WeaponManager : MonoBehaviour
         {
             activeStartingWeapon = Instantiate(startingWeaponPrefab, transform);
         }
-        OnActiveWeaponAdded?.Invoke(activeStartingWeapon);
     }
 
     private void CollectExistingWeapons()
@@ -48,7 +56,9 @@ public class WeaponManager : MonoBehaviour
 
         if (activeStartingWeapon != null)
         {
+            currentActiveWeapons.Add(activeStartingWeapon);
             currentWeapons.Add(activeStartingWeapon);
+            OnActiveWeaponAdded?.Invoke(activeStartingWeapon);
         }
 
         WeaponBase[] weapons = weaponHolder.GetComponentsInChildren<WeaponBase>(true);
@@ -60,7 +70,10 @@ public class WeaponManager : MonoBehaviour
                 if(weapon.Type == WeaponBase.WeaponType.Active)
                 {
                     currentActiveWeapons.Add(weapon);
-                } else
+                    OnActiveWeaponAdded?.Invoke(weapon);
+
+                }
+                else
                 {
                     currentPassiveWeapons.Add((PassiveWeaponBase)weapon);
                 }
@@ -100,6 +113,7 @@ public class WeaponManager : MonoBehaviour
 
             PassiveWeaponBase newPassive = Instantiate(weaponPrefab, weaponHolder.transform) as PassiveWeaponBase;
             newPassive.name = weaponPrefab.name;
+            currentWeapons.Add(newPassive);
             currentPassiveWeapons.Add(newPassive);
         }
         else
@@ -112,6 +126,7 @@ public class WeaponManager : MonoBehaviour
 
             WeaponBase newWeapon = Instantiate(weaponPrefab, weaponHolder.transform);
             newWeapon.name = weaponPrefab.name;
+            currentActiveWeapons.Add(newWeapon);
             currentWeapons.Add(newWeapon);
             OnActiveWeaponAdded?.Invoke(newWeapon);
         }
@@ -120,6 +135,10 @@ public class WeaponManager : MonoBehaviour
     public List<WeaponBase> GetCurrentWeapons()
     {
         return currentWeapons;
+    }
+    public List<WeaponBase> GetActiveCurrentWeapons()
+    {
+        return currentActiveWeapons;
     }
     public List<PassiveWeaponBase> GetCurrentPassiveWeapons()
     {

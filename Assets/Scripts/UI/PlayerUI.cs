@@ -8,13 +8,21 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private Slider healthSlider;
     [SerializeField] private Transform iconHolder;
     [SerializeField] private Image iconPrefab;
+    [SerializeField] private Image ultCooldown;
 
-    private void Awake()
+    private void Start()
     {
         if (player == null) return;
         player.OnExpChanged += SetExpSlider;
         player.OnHealthChanged += SetHealthSlider;
+        player.OnLevelUp += UpdateCooldown;
+        player.GetComponent<PlayerMovement>().OnUlt += UpdateCooldown;
         player.GetComponent<WeaponManager>().OnActiveWeaponAdded += AddActiveWeaponIcon;
+    }
+
+    public void UpdateCooldown()
+    {
+        ultCooldown.fillAmount = player.GetComponent<PlayerMovement>().LeftToUltRatio;
     }
 
     public void SetExpSlider(int expValue, int nextLevelValue)
@@ -40,5 +48,8 @@ public class PlayerUI : MonoBehaviour
 
         player.OnHealthChanged -= SetHealthSlider;
         player.OnExpChanged -= SetExpSlider;
+        player.OnLevelUp -= UpdateCooldown;
+        player.GetComponent<PlayerMovement>().OnUlt -= UpdateCooldown;
+
     }
 }

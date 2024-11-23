@@ -116,60 +116,29 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private float SelectFromTwoRanges()
+    {
+        var var1 = Random.Range(-1.5f, -0.5f);
+        var var2 = Random.Range(1.5f, 2.5f);
+        var var3 = Random.Range(0, 2);
+        if(var3 == 0)
+        {
+            return var1;
+        } else
+        {
+            return var2;
+        }
+    }
+
     private Vector3 GetSpawnPositionOnGround()
     {
-        // Get the camera's forward direction projected onto the XZ plane
-        Vector3 cameraForward = mainCamera.transform.forward;
-        cameraForward.y = 0;
-        cameraForward.Normalize();
+        Vector3 spawnPos = mainCamera.transform.position;
+        spawnPos.y = 0;
 
-        // Get the camera's right direction projected onto the XZ plane
-        Vector3 cameraRight = mainCamera.transform.right;
-        cameraRight.y = 0;
-        cameraRight.Normalize();
+        Vector3 viewportPoint = new Vector3(SelectFromTwoRanges(), SelectFromTwoRanges(), Random.Range(-2f,10f));
+        Vector3 worldPoint = Camera.main.ViewportToWorldPoint(viewportPoint);
 
-        // Get camera position projected onto XZ plane
-        Vector3 cameraPos = mainCamera.transform.position;
-        Vector3 cameraPosGround = new Vector3(cameraPos.x, 0, cameraPos.z);
-
-        // Calculate visible area extents
-        float verticalFov = mainCamera.fieldOfView;
-        float horizontalFov = Camera.VerticalToHorizontalFieldOfView(verticalFov, mainCamera.aspect);
-
-        // Convert FOV to radians
-        float verticalFovRad = verticalFov * Mathf.Deg2Rad;
-        float horizontalFovRad = horizontalFov * Mathf.Deg2Rad;
-
-        // Calculate view distances based on camera height and angle
-        float cameraHeight = mainCamera.transform.position.y;
-        float visibleDistance = cameraHeight * Mathf.Tan(verticalFovRad);
-
-        // Choose a random direction to spawn (0: front, 1: right, 2: back, 3: left)
-        int spawnSide = Random.Range(0, 4);
-        Vector3 spawnPos = cameraPosGround;
-
-        switch (spawnSide)
-        {
-            case 0: // Front
-                spawnPos += cameraForward * (visibleDistance + spawnOffset);
-                spawnPos += cameraRight * Random.Range(-visibleDistance, visibleDistance);
-                break;
-            case 1: // Right
-                spawnPos += cameraRight * (visibleDistance + spawnOffset);
-                spawnPos += cameraForward * Random.Range(-visibleDistance, visibleDistance);
-                break;
-            case 2: // Back
-                spawnPos -= cameraForward * (visibleDistance + spawnOffset);
-                spawnPos += cameraRight * Random.Range(-visibleDistance, visibleDistance);
-                break;
-            case 3: // Left
-                spawnPos -= cameraRight * (visibleDistance + spawnOffset);
-                spawnPos += cameraForward * Random.Range(-visibleDistance, visibleDistance);
-                break;
-        }
-
-        // Cast ray to find ground position
-        Vector3 rayStart = spawnPos + Vector3.up * raycastHeight;
+        Vector3 rayStart = new Vector3(worldPoint.x, raycastHeight, worldPoint.z);
         Ray ray = new Ray(rayStart, Vector3.down);
         RaycastHit hit;
 
@@ -183,45 +152,6 @@ public class GameManager : MonoBehaviour
 
         Debug.LogWarning("Could not find ground to spawn enemy!");
         return Vector3.zero;
-    }
-
-    private void OnDrawGizmos()
-    {
-        if (!Application.isPlaying && mainCamera != null)
-        {
-            // Draw spawn area visualization
-            Vector3 cameraPos = mainCamera.transform.position;
-            Vector3 cameraPosGround = new Vector3(cameraPos.x, 0, cameraPos.z);
-
-            float verticalFov = mainCamera.fieldOfView;
-            float visibleDistance = cameraPos.y * Mathf.Tan(verticalFov * Mathf.Deg2Rad);
-
-            Gizmos.color = Color.yellow;
-            // Draw inner rectangle (visible area)
-            DrawRectangle(cameraPosGround, visibleDistance, mainCamera.transform.forward, mainCamera.transform.right);
-
-            // Draw outer rectangle (spawn area)
-            Gizmos.color = Color.red;
-            DrawRectangle(cameraPosGround, visibleDistance + spawnOffset, mainCamera.transform.forward, mainCamera.transform.right);
-        }
-    }
-
-    private void DrawRectangle(Vector3 center, float size, Vector3 forward, Vector3 right)
-    {
-        forward.y = 0;
-        right.y = 0;
-        forward.Normalize();
-        right.Normalize();
-
-        Vector3 topLeft = center + forward * size - right * size;
-        Vector3 topRight = center + forward * size + right * size;
-        Vector3 bottomLeft = center - forward * size - right * size;
-        Vector3 bottomRight = center - forward * size + right * size;
-
-        Gizmos.DrawLine(topLeft, topRight);
-        Gizmos.DrawLine(topRight, bottomRight);
-        Gizmos.DrawLine(bottomRight, bottomLeft);
-        Gizmos.DrawLine(bottomLeft, topLeft);
     }
 }
 
