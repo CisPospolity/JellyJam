@@ -46,12 +46,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: 2b3d3abbc247546468fa6d6ea313b29c, type: 2}
   baseStats:
-    baseDamage: 1
+    baseDamage: 5
     baseCooldown: 4
     baseArea: 2.5
     baseProjectileSpeed: 1
     baseProjectileCount: 1
     baseDuration: 1
+  weaponType: 0
   currentLevel: 1
   spinDuration: 1
   minSpinDuration: 0.1

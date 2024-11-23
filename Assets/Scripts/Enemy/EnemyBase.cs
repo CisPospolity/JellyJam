@@ -11,6 +11,8 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
     private PlayerScript player;
     private Rigidbody rb;
     [SerializeField] private Vector3 spawnOffset;
+    [SerializeField] private int expValue = 1;
+    [SerializeField] private ExpObj expObject;
     public Vector3 SpawnOffset => spawnOffset;
     public float MoveSpeed => moveSpeed;
 
@@ -39,6 +41,11 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
         health -= damage;
         if(health <= 0)
         {
+            if(expObject != null)
+            {
+                var spawnedExp = Instantiate(expObject, transform.position, Quaternion.identity);
+                spawnedExp.SetExpValue(expValue);
+            }
             Destroy(gameObject);
         }
     }
