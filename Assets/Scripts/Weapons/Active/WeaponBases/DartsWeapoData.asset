@@ -13,13 +13,12 @@ MonoBehaviour:
   m_Name: DartsWeapoData
   m_EditorClassIdentifier: 
   weaponName: Darts Weapon
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 45d9278b928184e4e8630fdec9ac37c3, type: 3}
   description: 
   weaponPrefab: {fileID: 645710885804594091, guid: 40cd247858e33de498aa289ab8acacd7,
     type: 3}
   levelUpgrades:
-  - upgradeName: 
-    description: 
+  - description: 
     statModifiers:
       baseDamage: 0
       baseCooldown: 0

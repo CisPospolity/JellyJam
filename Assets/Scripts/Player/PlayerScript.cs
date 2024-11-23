@@ -86,11 +86,22 @@ public class PlayerScript : MonoBehaviour
 
     public delegate void OnStatsChangedDelegate();
     public event OnStatsChangedDelegate OnStatsChanged;
+    public delegate void OnExpChangedDelegate(int exp, int nextLevel);
+    public event OnExpChangedDelegate OnExpChanged;
+    public delegate void OnHealthChangedDelegate(float health, float maxHealth);
+    public event OnHealthChangedDelegate OnHealthChanged;
 
     private void Awake()
     {
         currentStats = new Stats(baseStats);
         levelUpManager = GetComponent<LevelUpManager>();
+    }
+
+    private void Start()
+    {
+        OnHealthChanged?.Invoke(health, maxHealth);
+        OnExpChanged?.Invoke(currentExp, expToNextLevel);
+
     }
 
     public Stats GetCurrentStats()
@@ -113,6 +124,7 @@ public class PlayerScript : MonoBehaviour
 
         health -= damage;
         nextVulnerableTime = Time.time + invincibilityCooldown;
+        OnHealthChanged?.Invoke(health, maxHealth);
     }
 
     public void AddExp(int amount)
@@ -124,6 +136,7 @@ public class PlayerScript : MonoBehaviour
             currentExp -= expToNextLevel;
             AddLevel();
         }
+        OnExpChanged?.Invoke(currentExp, expToNextLevel);
     }
 
     public void AddLevel()
@@ -131,6 +144,7 @@ public class PlayerScript : MonoBehaviour
         level++;
         SetNextLevelCap();
         levelUpManager.ShowLevelUpOptions();
+        OnExpChanged?.Invoke(currentExp, expToNextLevel);
     }
 
     private void SetNextLevelCap()

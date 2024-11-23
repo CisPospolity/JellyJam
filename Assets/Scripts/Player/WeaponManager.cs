@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
@@ -14,6 +15,8 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] private List<PassiveWeaponBase> currentPassiveWeapons = new List<PassiveWeaponBase>();
     [SerializeField] private Transform weaponHolder;
     [SerializeField] private WeaponBase activeStartingWeapon;
+
+    public event Action<WeaponBase> OnActiveWeaponAdded;
 
     private void Awake()
     {
@@ -36,6 +39,7 @@ public class WeaponManager : MonoBehaviour
         {
             activeStartingWeapon = Instantiate(startingWeaponPrefab, transform);
         }
+        OnActiveWeaponAdded?.Invoke(activeStartingWeapon);
     }
 
     private void CollectExistingWeapons()
@@ -109,6 +113,7 @@ public class WeaponManager : MonoBehaviour
             WeaponBase newWeapon = Instantiate(weaponPrefab, weaponHolder.transform);
             newWeapon.name = weaponPrefab.name;
             currentWeapons.Add(newWeapon);
+            OnActiveWeaponAdded?.Invoke(newWeapon);
         }
     }
 

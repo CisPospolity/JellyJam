@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SpinWeaponData
   m_EditorClassIdentifier: 
   weaponName: Spin Weapon
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: f5b5e97b734a3a64d9cb98f563946253, type: 3}
   description: 
   weaponPrefab: {fileID: 5456915935410485788, guid: f07b5f33f5cda7e43b3265d41b4d69e1,
     type: 3}
