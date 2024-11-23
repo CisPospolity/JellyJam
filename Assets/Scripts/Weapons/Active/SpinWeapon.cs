@@ -31,6 +31,10 @@ public class SpinWeapon : WeaponBase
         currentRotation = 0f;
         spinEndTime = Time.time + CalculateDuration();
         playerMovement.SetRotationLocked(true); // Disable mouse rotation
+        if (playerMovement.Animator != null)
+        {
+            playerMovement.Animator.SetTrigger("attack");
+        }
     }
 
     private float CalculateDuration()

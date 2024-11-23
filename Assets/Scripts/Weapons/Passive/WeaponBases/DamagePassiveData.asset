@@ -12,14 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82552777b0e038b4c8f1dc941aa40382, type: 3}
   m_Name: DamagePassiveData
   m_EditorClassIdentifier: 
-  weaponName: 
+  weaponName: Damage Passive
   icon: {fileID: 0}
   description: 
   weaponPrefab: {fileID: 7870311476739627392, guid: ddb7d840677e9924daabbf569523ac05,
     type: 3}
   levelUpgrades:
-  - upgradeName: 
-    description: 
+  - description: 
     statModifiers:
       baseDamage: 10
       baseCooldown: 0
@@ -27,8 +26,7 @@ MonoBehaviour:
       baseProjectileSpeed: 0
       baseProjectileCount: 0
       baseDuration: 0
-  - upgradeName: 
-    description: 
+  - description: 
     statModifiers:
       baseDamage: 10
       baseCooldown: 0

@@ -10,8 +10,11 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController characterController;
     private Camera mainCamera;
     private PlayerScript playerScript;
+    private Animator animator;
 
     private bool rotationLocked = false;
+
+    public Animator Animator => animator;
 
     public void SetRotationLocked(bool locked)
     {
@@ -21,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         characterController = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
         mainCamera = Camera.main;
         playerScript = GetComponent<PlayerScript>();
 
@@ -36,15 +40,20 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
-        if (movementAxis == Vector2.zero) return;
+        if (movementAxis == Vector2.zero)
+        {
+            animator.SetBool("moving", false);
+            return;
+        }
         var move = new Vector3(movementAxis.x, 0, movementAxis.y);
         move *= playerScript.Speed * Time.deltaTime;
+        animator.SetBool("moving", true);
         characterController.Move(move);
     }
 
     private void HandleRotation(Vector2 mousePosition)
     {
-        if (rotationLocked) return;
+        if (rotationLocked || Time.timeScale == 0) return;
         Vector3 mousePos = new Vector3(mousePosition.x, mousePosition.y, 0);
 
         Ray ray = mainCamera.ScreenPointToRay(mousePos);
