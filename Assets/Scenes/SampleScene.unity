@@ -624,7 +624,10 @@ MonoBehaviour:
   waves:
   - timeToActivate: 0
     enemiesToSpawn:
-    - {fileID: 2588630775770154171, guid: 7db7ba587346cd1408a3a126a637ad33, type: 3}
+    - enemyPrefab: {fileID: 2588630775770154171, guid: 7db7ba587346cd1408a3a126a637ad33,
+        type: 3}
+      isOneTimeSpawn: 0
+      hasBeenSpawned: 0
   mainCamera: {fileID: 330585545}
   spawnOffset: 2
   spawnInterval: 1

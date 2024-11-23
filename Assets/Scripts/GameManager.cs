@@ -55,15 +55,32 @@ public class GameManager : MonoBehaviour
     private void SpawnRandomEnemyFromCurrentWave()
     {
         EnemyWave currentWave = waves[currentWaveIndex];
-        if (currentWave.enemiesToSpawn.Count > 0)
-        {
-            int randomEnemyIndex = Random.Range(0, currentWave.enemiesToSpawn.Count);
-            GameObject enemyPrefab = currentWave.enemiesToSpawn[randomEnemyIndex];
 
+        List<EnemySpawnData> availableOneTimeEnemies = currentWave.enemiesToSpawn.FindAll(
+            e => e.isOneTimeSpawn && !e.hasBeenSpawned);
+
+        if (availableOneTimeEnemies.Count > 0)
+        {
+            int randomIndex = Random.Range(0, availableOneTimeEnemies.Count);
+            EnemySpawnData enemyData = availableOneTimeEnemies[randomIndex];
+            Vector3 groundPoint = GetSpawnPositionOnGround();
+
+            if (groundPoint != Vector3.zero)
+            {
+                SpawnEnemyWithOffset(enemyData.enemyPrefab, groundPoint);
+                enemyData.hasBeenSpawned = true;
+            }
+            return;
+        }
+
+        List<EnemySpawnData> regularEnemies = currentWave.enemiesToSpawn.FindAll(e => !e.isOneTimeSpawn);
+        if (regularEnemies.Count > 0)
+        {
+            int randomEnemyIndex = Random.Range(0, regularEnemies.Count);
             Vector3 groundPoint = GetSpawnPositionOnGround();
             if (groundPoint != Vector3.zero)
             {
-                SpawnEnemyWithOffset(enemyPrefab, groundPoint);
+                SpawnEnemyWithOffset(regularEnemies[randomEnemyIndex].enemyPrefab, groundPoint);
             }
         }
     }
@@ -205,5 +222,14 @@ public class GameManager : MonoBehaviour
 public class EnemyWave
 {
     public float timeToActivate;
-    public List<GameObject> enemiesToSpawn;
+    public List<EnemySpawnData> enemiesToSpawn;
+}
+
+[System.Serializable]
+public class EnemySpawnData
+{
+    public GameObject enemyPrefab;
+    public bool isOneTimeSpawn;
+    [HideInInspector]
+    public bool hasBeenSpawned;
 }
