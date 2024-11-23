@@ -97,7 +97,6 @@ public class LevelUpManager : MonoBehaviour
                 });
             }
         }
-
         // Select 3 random options
         while (possibleOptions.Count > 0)
         {
@@ -129,7 +128,7 @@ public class LevelUpManager : MonoBehaviour
 
         Time.timeScale = 1; // Resume the game
         isChoosingUpgrade = false;
-        Destroy(activeMenu);
+        activeMenu.SetActive(false);
     }
 }
 

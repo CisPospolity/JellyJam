@@ -1,7 +1,29 @@
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class AuraWeapon : WeaponBase
 {
+    [SerializeField] private VisualEffect vfxGraph;
+    private GameObject vfxHolder;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        vfxHolder = new GameObject("Aura_VFX_Holder");
+        vfxHolder.transform.position = transform.position;
+
+        vfxGraph.transform.parent = vfxHolder.transform;
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        if (vfxHolder != null)
+        {
+            vfxHolder.transform.position = transform.position;
+        }
+    }
     protected override void Attack()
     {
         Collider[] hits = Physics.OverlapSphere(transform.position, GetModifiedArea());
@@ -12,6 +34,11 @@ public class AuraWeapon : WeaponBase
             {
                 enemy.Damage((int)GetModifiedDamage());
             }
+        }
+
+        if(vfxGraph != null)
+        {
+            vfxGraph.SetFloat("Radius", GetModifiedArea());
         }
     }
 

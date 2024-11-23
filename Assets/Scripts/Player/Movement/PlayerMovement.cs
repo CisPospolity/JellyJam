@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerInputManager))]
@@ -13,21 +14,34 @@ public class PlayerMovement : MonoBehaviour
     private PlayerScript playerScript;
     private Animator animator;
     private bool rotationLocked = false;
-
+    private int levelCounter = 0;
+    [SerializeField]
+    private int levelsNeededForUlt = 10;
+    public float LeftToUltRatio
+    {
+        get
+        {
+            float left = levelsNeededForUlt - levelCounter;
+            left = Mathf.Max(0f, left);
+            return left / levelsNeededForUlt;
+        }
+    }
     public Animator Animator => animator;
-
+    public event Action OnUlt;
     public void SetRotationLocked(bool locked) => rotationLocked = locked;
 
-    void Start()
+    void Awake()
     {
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         mainCamera = Camera.main;
         playerScript = GetComponent<PlayerScript>();
+        playerScript.OnLevelUp += AddLevelToCounter;
 
         playerInputManager = GetComponent<PlayerInputManager>();
         playerInputManager.OnMovementEvent += SetMovement;
         playerInputManager.OnLookEvent += HandleRotation;
+        playerInputManager.OnUltEvent += UseUlt;
     }
 
     private void Update()
@@ -71,6 +85,31 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void AddLevelToCounter()
+    {
+        levelCounter++;
+    }
+
+    private void UseUlt()
+    {
+        if(levelCounter>= levelsNeededForUlt)
+        {
+            levelCounter = 0;
+        }
+
+        Collider[] hits = Physics.OverlapSphere(transform.position, 20f);
+
+        foreach (var hit in hits)
+        {
+            if (hit.TryGetComponent(out IDamagable enemy))
+            {
+                enemy.Damage(50);
+            }
+        }
+        animator.SetTrigger("ult");
+        OnUlt?.Invoke();
+    }
+
     private void SetMovement(Vector2 axis)
     {
         movementAxis = axis;
@@ -80,5 +119,8 @@ public class PlayerMovement : MonoBehaviour
     {
         playerInputManager.OnLookEvent -= HandleRotation;
         playerInputManager.OnMovementEvent -= SetMovement;
+        playerInputManager.OnUltEvent -= UseUlt;
+        playerScript.OnLevelUp -= AddLevelToCounter;
+
     }
 }
