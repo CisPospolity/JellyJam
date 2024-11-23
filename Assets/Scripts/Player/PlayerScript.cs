@@ -13,6 +13,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private int expToNextLevel = 5;
     [SerializeField] private float invincibilityCooldown = 0.5f;
     private float nextVulnerableTime = 0f;
+    private LevelUpManager levelUpManager;
 
     [System.Serializable]
     public class Stats
@@ -89,6 +90,7 @@ public class PlayerScript : MonoBehaviour
     private void Awake()
     {
         currentStats = new Stats(baseStats);
+        levelUpManager = GetComponent<LevelUpManager>();
     }
 
     public Stats GetCurrentStats()
@@ -111,6 +113,29 @@ public class PlayerScript : MonoBehaviour
 
         health -= damage;
         nextVulnerableTime = Time.time + invincibilityCooldown;
+    }
+
+    public void AddExp(int amount)
+    {
+        currentExp += amount;
+
+        while(currentExp >= expToNextLevel)
+        {
+            currentExp -= expToNextLevel;
+            AddLevel();
+        }
+    }
+
+    public void AddLevel()
+    {
+        level++;
+        SetNextLevelCap();
+        levelUpManager.ShowLevelUpOptions();
+    }
+
+    private void SetNextLevelCap()
+    {
+        expToNextLevel += 10;
     }
 }
 
@@ -159,6 +184,10 @@ public class PlayerScriptEditor : Editor
 
         EditorGUI.indentLevel--;
 
+        if (GUILayout.Button("Add Level"))
+        {
+            player.AddLevel();
+        }
         EditorGUILayout.Space(5);
     }
 }

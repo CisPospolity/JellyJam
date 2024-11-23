@@ -33,8 +33,9 @@ public class MebeWeapon : WeaponBase
         }
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         startTime = Time.time;
         mebe = Instantiate(mebePrefab, player.transform.position, Quaternion.identity, null).transform;
         initialOffset = relativeOffset;

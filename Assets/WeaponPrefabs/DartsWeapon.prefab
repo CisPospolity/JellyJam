@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b152704ee0addf4448046cada5d81bb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponData: {fileID: 11400000, guid: 9e7497a765cb0924386898d13c2518c9, type: 2}
   baseStats:
     baseDamage: 1
     baseCooldown: 1
@@ -51,6 +52,7 @@ MonoBehaviour:
     baseProjectileSpeed: 10
     baseProjectileCount: 2
     baseDuration: 1
+  currentLevel: 1
   projectile: {fileID: 9043385121838544192, guid: e1364318c49d0284eaa4d78df106ab76,
     type: 3}
   projectileDelayBetween: 0.1

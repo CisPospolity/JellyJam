@@ -16,8 +16,14 @@ public class DartsWeapon : WeaponBase
         StartCoroutine(FireProjectiles(count));
     }
 
-    private void Start()
+    protected override void Awake()
     {
+        base.Awake();
+    }
+
+    protected override void Start()
+    {
+        base.Start();
         playerInputManager = GetComponentInParent<PlayerInputManager>();
         playerInputManager.OnLookEvent += HandleMouse;
         mainCamera = Camera.main;
@@ -63,5 +69,11 @@ public class DartsWeapon : WeaponBase
                 GetModifiedProjectileSpeed(),
                 GetModifiedArea());
         }
+    }
+
+    private void OnDestroy()
+    {
+        playerInputManager.OnLookEvent -= HandleMouse;
+
     }
 }
