@@ -19,6 +19,8 @@ public class TestProjectile : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(direction);
 
         isInitialized = true;
+
+        Destroy(gameObject, 10f);
     }
 
     private void Update()

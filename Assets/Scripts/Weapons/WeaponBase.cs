@@ -15,7 +15,7 @@ public abstract class WeaponBase : MonoBehaviour
 
     [SerializeField] protected WeaponStats baseStats = new WeaponStats();
     protected PlayerScript player;
-    protected PlayerScript.Stats cachedStats;
+    protected PlayerScript.Stats cachedStats = new PlayerScript.Stats();
     protected float nextAttackTime;
 
     protected virtual void Awake()

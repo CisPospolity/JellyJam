@@ -11,6 +11,13 @@ public class PlayerMovement : MonoBehaviour
     private Camera mainCamera;
     private PlayerScript playerScript;
 
+    private bool rotationLocked = false;
+
+    public void SetRotationLocked(bool locked)
+    {
+        rotationLocked = locked;
+    }
+
     void Start()
     {
         characterController = GetComponent<CharacterController>();
@@ -37,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleRotation(Vector2 mousePosition)
     {
+        if (rotationLocked) return;
         Vector3 mousePos = new Vector3(mousePosition.x, mousePosition.y, 0);
 
         Ray ray = mainCamera.ScreenPointToRay(mousePos);

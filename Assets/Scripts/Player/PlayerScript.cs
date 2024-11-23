@@ -53,6 +53,15 @@ public class PlayerScript : MonoBehaviour
             additionalProjectileCount += other.additionalProjectileCount;
             durationPercent += other.durationPercent;
         }
+        public void RemoveStats(Stats other)
+        {
+            damagePercent += other.damagePercent;
+            areaPercent += other.areaPercent;
+            cooldownPercent += other.cooldownPercent;
+            projectileSpeedPercent += other.projectileSpeedPercent;
+            additionalProjectileCount += other.additionalProjectileCount;
+            durationPercent += other.durationPercent;
+        }
     }
 
     [SerializeField] private Stats baseStats = new Stats();
