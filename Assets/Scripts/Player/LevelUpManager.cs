@@ -14,9 +14,9 @@ public class LevelUpManager : MonoBehaviour
 {
     [SerializeField] private WeaponPool weaponPool;
     [SerializeField] private GameObject levelUpMenuPrefab;
+    [SerializeField] private GameObject activeMenu;
 
     private WeaponManager weaponManager;
-    private GameObject activeMenu;
     private bool isChoosingUpgrade;
 
     private void Awake()
@@ -28,28 +28,33 @@ public class LevelUpManager : MonoBehaviour
     {
         if (isChoosingUpgrade) return;
 
-        Time.timeScale = 0; // Pause the game
-       /* isChoosingUpgrade = true;
+        Time.timeScale = 0;
+        isChoosingUpgrade = true;
 
         // Instantiate menu if not already present
         if (activeMenu == null)
         {
             activeMenu = Instantiate(levelUpMenuPrefab);
-            var menuUI = activeMenu.GetComponent<LevelUpMenuUI>();
-            menuUI.Initialize(this);
-        }*/
+        } else
+        {
+            activeMenu.SetActive(true);
+        }
+
+        var menuUI = activeMenu.GetComponent<LevelUpMenu>();
+        menuUI.Initialize(this);
 
         // Generate 3 random options
         LevelUpOption[] options = GenerateOptions();
         if (options.Length > 0)
         {
-            SelectOption(options[Random.Range(0, options.Length)]);
+            menuUI.ShowOptions(options);
         } else
         {
             Time.timeScale = 1;
+            isChoosingUpgrade = false;
             Debug.Log("Nothing to upgrade");
+            activeMenu.SetActive(false);
         }
-        //activeMenu.GetComponent<LevelUpMenuUI>().ShowOptions(options);
     }
 
     private LevelUpOption[] GenerateOptions()
@@ -70,8 +75,8 @@ public class LevelUpManager : MonoBehaviour
                     type = UpgradeType.WeaponUpgrade,
                     weapon = weapon,
                     upgradeLevel = weapon.CurrentLevel + 1,
-                    //icon = weapon.GetComponent<WeaponDisplay>()?.Icon,
-                    title = weapon.Upgrades[weapon.CurrentLevel - 1].upgradeName,
+                    icon = weapon.icon,
+                    title = weapon.WeaponName,
                     description = weapon.Upgrades[weapon.CurrentLevel - 1].description
                 });
             }

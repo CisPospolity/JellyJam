@@ -15,5 +15,24 @@ MonoBehaviour:
   weaponName: 
   icon: {fileID: 0}
   description: 
-  weaponPrefab: {fileID: 0}
-  levelUpgrades: []
+  weaponPrefab: {fileID: 7870311476739627392, guid: ddb7d840677e9924daabbf569523ac05,
+    type: 3}
+  levelUpgrades:
+  - upgradeName: 
+    description: 
+    statModifiers:
+      baseDamage: 10
+      baseCooldown: 0
+      baseArea: 0
+      baseProjectileSpeed: 0
+      baseProjectileCount: 0
+      baseDuration: 0
+  - upgradeName: 
+    description: 
+    statModifiers:
+      baseDamage: 10
+      baseCooldown: 0
+      baseArea: 0
+      baseProjectileSpeed: 0
+      baseProjectileCount: 0
+      baseDuration: 0

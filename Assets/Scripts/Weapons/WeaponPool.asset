@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: WeaponPool
   m_EditorClassIdentifier: 
   availableWeapons:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 5959148762947895976, guid: c36c14b21b418ac41859dbb63189ea44, type: 3}
+  - {fileID: 645710885804594091, guid: 40cd247858e33de498aa289ab8acacd7, type: 3}
+  - {fileID: 4646298558180225071, guid: 7d6b2493e134ce040b7509854007b1a6, type: 3}
+  - {fileID: 7870311476739627392, guid: ddb7d840677e9924daabbf569523ac05, type: 3}

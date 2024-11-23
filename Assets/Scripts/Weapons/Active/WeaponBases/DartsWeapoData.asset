@@ -12,9 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82552777b0e038b4c8f1dc941aa40382, type: 3}
   m_Name: DartsWeapoData
   m_EditorClassIdentifier: 
-  weaponName: Aura Weapon
+  weaponName: Darts Weapon
   icon: {fileID: 0}
   description: 
-  weaponPrefab: {fileID: 5959148762947895976, guid: c36c14b21b418ac41859dbb63189ea44,
+  weaponPrefab: {fileID: 645710885804594091, guid: 40cd247858e33de498aa289ab8acacd7,
     type: 3}
-  levelUpgrades: []
+  levelUpgrades:
+  - upgradeName: 
+    description: 
+    statModifiers:
+      baseDamage: 0
+      baseCooldown: 0
+      baseArea: 0
+      baseProjectileSpeed: 0
+      baseProjectileCount: 1
+      baseDuration: 0

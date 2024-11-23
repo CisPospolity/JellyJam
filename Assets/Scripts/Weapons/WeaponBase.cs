@@ -42,7 +42,6 @@ public abstract class WeaponBase : MonoBehaviour
     [System.Serializable]
     public class WeaponLevelUpgrade
     {
-        public string upgradeName;
         [TextArea(2, 3)]
         public string description;
         public WeaponStats statModifiers = new WeaponStats(true);

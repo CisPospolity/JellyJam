@@ -10,6 +10,7 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] private int maxPassiveWeapons = 3;
 
     [SerializeField] private List<WeaponBase> currentWeapons = new List<WeaponBase>();
+    [SerializeField] private List<WeaponBase> currentActiveWeapons = new List<WeaponBase>();
     [SerializeField] private List<PassiveWeaponBase> currentPassiveWeapons = new List<PassiveWeaponBase>();
     [SerializeField] private Transform weaponHolder;
     [SerializeField] private WeaponBase activeStartingWeapon;
@@ -52,6 +53,13 @@ public class WeaponManager : MonoBehaviour
             if (weapon != activeStartingWeapon && !currentWeapons.Contains(weapon))
             {
                 currentWeapons.Add(weapon);
+                if(weapon.Type == WeaponBase.WeaponType.Active)
+                {
+                    currentActiveWeapons.Add(weapon);
+                } else
+                {
+                    currentPassiveWeapons.Add((PassiveWeaponBase)weapon);
+                }
             }
         }
     }
@@ -65,7 +73,7 @@ public class WeaponManager : MonoBehaviour
         }
         else
         {
-            int additionalWeapons = currentWeapons.Count - (activeStartingWeapon != null ? 1 : 0);
+            int additionalWeapons = currentActiveWeapons.Count - (activeStartingWeapon != null ? 1 : 0);
             return additionalWeapons < maxAdditionalWeapons;
         }
     }
@@ -106,10 +114,7 @@ public class WeaponManager : MonoBehaviour
 
     public List<WeaponBase> GetCurrentWeapons()
     {
-        List<WeaponBase> allWeapons = new List<WeaponBase>();
-        allWeapons.AddRange(currentWeapons);
-        allWeapons.AddRange(currentPassiveWeapons);
-        return allWeapons;
+        return currentWeapons;
     }
     public List<PassiveWeaponBase> GetCurrentPassiveWeapons()
     {

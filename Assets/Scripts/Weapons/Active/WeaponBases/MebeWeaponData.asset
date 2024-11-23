@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82552777b0e038b4c8f1dc941aa40382, type: 3}
   m_Name: MebeWeaponData
   m_EditorClassIdentifier: 
-  weaponName: Aura Weapon
+  weaponName: Mebe Weapon
   icon: {fileID: 0}
   description: 
-  weaponPrefab: {fileID: 5959148762947895976, guid: c36c14b21b418ac41859dbb63189ea44,
+  weaponPrefab: {fileID: 4646298558180225071, guid: 7d6b2493e134ce040b7509854007b1a6,
     type: 3}
   levelUpgrades: []
