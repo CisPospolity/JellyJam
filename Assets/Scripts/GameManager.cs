@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
     private float timeSinceStart = 0;
     public float Timer => timeSinceStart;
 
+    [SerializeField] private float maxTimer = 15f * 60;
     [SerializeField] private List<EnemyWave> waves;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private float spawnOffset = 2f;
@@ -26,7 +27,13 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        timeSinceStart += Time.deltaTime;
+        if (timeSinceStart < maxTimer)
+        {
+            timeSinceStart += Time.deltaTime;
+        } else
+        {
+            timeSinceStart = maxTimer;
+        }
         CheckWaveProgresion();
         HandleSpawning();
     }
