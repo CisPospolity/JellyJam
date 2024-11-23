@@ -18,7 +18,7 @@ public class WeaponManager : MonoBehaviour
 
     public event Action<WeaponBase> OnActiveWeaponAdded;
 
-    private void Awake()
+    private void Start()
     {
         SetupStartingWeapon();
         CollectExistingWeapons();
