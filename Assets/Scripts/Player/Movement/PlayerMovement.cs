@@ -2,24 +2,21 @@ using UnityEngine;
 
 [RequireComponent(typeof(PlayerInputManager))]
 [RequireComponent(typeof(CharacterController))]
-[RequireComponent (typeof(PlayerScript))]
+[RequireComponent(typeof(PlayerScript))]
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Movement Settings")]
     private PlayerInputManager playerInputManager;
     private Vector2 movementAxis = Vector2.zero;
     private CharacterController characterController;
     private Camera mainCamera;
     private PlayerScript playerScript;
     private Animator animator;
-
     private bool rotationLocked = false;
 
     public Animator Animator => animator;
 
-    public void SetRotationLocked(bool locked)
-    {
-        rotationLocked = locked;
-    }
+    public void SetRotationLocked(bool locked) => rotationLocked = locked;
 
     void Start()
     {
@@ -45,7 +42,9 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("moving", false);
             return;
         }
+
         var move = new Vector3(movementAxis.x, 0, movementAxis.y);
+
         move *= playerScript.Speed * Time.deltaTime;
         animator.SetBool("moving", true);
         characterController.Move(move);
@@ -59,13 +58,13 @@ public class PlayerMovement : MonoBehaviour
         Ray ray = mainCamera.ScreenPointToRay(mousePos);
         Plane groundPlane = new Plane(Vector3.up, transform.position);
 
-        if(groundPlane.Raycast(ray, out float rayDistance))
+        if (groundPlane.Raycast(ray, out float rayDistance))
         {
             Vector3 hitPoint = ray.GetPoint(rayDistance);
             Vector3 lookDir = hitPoint - transform.position;
             lookDir.y = 0;
 
-            if(lookDir != Vector3.zero)
+            if (lookDir != Vector3.zero)
             {
                 transform.rotation = Quaternion.LookRotation(lookDir);
             }
