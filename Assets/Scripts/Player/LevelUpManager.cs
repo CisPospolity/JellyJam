@@ -80,7 +80,7 @@ public class LevelUpManager : MonoBehaviour
         // Add new weapons
         foreach (var weaponPrefab in weaponPool.AvailableWeapons)
         {
-            if (!currentWeapons.Exists(w => w.GetType() == weaponPrefab.GetType()))
+            if (!currentWeapons.Exists(w => w.GetType() == weaponPrefab.GetType()) && weaponManager.CanAddWeapon(weaponPrefab))
             {
                 possibleOptions.Add(new LevelUpOption
                 {
@@ -94,11 +94,14 @@ public class LevelUpManager : MonoBehaviour
         }
 
         // Select 3 random options
-        while (options.Count < 3 && possibleOptions.Count > 0)
+        while (possibleOptions.Count > 0)
         {
             int index = Random.Range(0, possibleOptions.Count);
             options.Add(possibleOptions[index]);
             possibleOptions.RemoveAt(index);
+
+            // Cap at 3 options maximum
+            if (options.Count >= 3) break;
         }
 
         return options.ToArray();

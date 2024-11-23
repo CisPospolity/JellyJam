@@ -7,8 +7,10 @@ public class WeaponManager : MonoBehaviour
 {
     [SerializeField] private WeaponBase startingWeaponPrefab;
     [SerializeField] private int maxAdditionalWeapons = 3;
+    [SerializeField] private int maxPassiveWeapons = 3;
 
     [SerializeField] private List<WeaponBase> currentWeapons = new List<WeaponBase>();
+    [SerializeField] private List<PassiveWeaponBase> currentPassiveWeapons = new List<PassiveWeaponBase>();
     [SerializeField] private Transform weaponHolder;
     [SerializeField] private WeaponBase activeStartingWeapon;
 
@@ -54,34 +56,64 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    public bool CanAddWeapon()
+    public bool CanAddWeapon(WeaponBase weaponPrefab)
     {
-        int additionalWeapons = currentWeapons.Count - (activeStartingWeapon != null ? 1 : 0);
-        return additionalWeapons < maxAdditionalWeapons;
+        if (weaponPrefab.Type == WeaponBase.WeaponType.Passive)
+        {
+            int currentPassiveCount = currentPassiveWeapons.Count;
+            return currentPassiveCount < maxPassiveWeapons;
+        }
+        else
+        {
+            int additionalWeapons = currentWeapons.Count - (activeStartingWeapon != null ? 1 : 0);
+            return additionalWeapons < maxAdditionalWeapons;
+        }
     }
 
     public void AddWeapon(WeaponBase weaponPrefab)
     {
-        if (!CanAddWeapon())
+        if (!CanAddWeapon(weaponPrefab))
         {
             Debug.LogWarning("Cannot add weapon: Maximum weapon capacity reached!");
             return;
         }
 
-        if (currentWeapons.Exists(w => w.GetType() == weaponPrefab.GetType()))
+        if (weaponPrefab.Type == WeaponBase.WeaponType.Passive)
         {
-            Debug.LogWarning($"Weapon of type {weaponPrefab.GetType()} already exists!");
-            return;
-        }
+            if (currentPassiveWeapons.Exists(w => w.GetType() == weaponPrefab.GetType()))
+            {
+                Debug.LogWarning($"Passive weapon of type {weaponPrefab.GetType()} already exists!");
+                return;
+            }
 
-        WeaponBase newWeapon = Instantiate(weaponPrefab, weaponHolder.transform);
-        newWeapon.name = weaponPrefab.name;
-        currentWeapons.Add(newWeapon);
+            PassiveWeaponBase newPassive = Instantiate(weaponPrefab, weaponHolder.transform) as PassiveWeaponBase;
+            newPassive.name = weaponPrefab.name;
+            currentPassiveWeapons.Add(newPassive);
+        }
+        else
+        {
+            if (currentWeapons.Exists(w => w.GetType() == weaponPrefab.GetType()))
+            {
+                Debug.LogWarning($"Weapon of type {weaponPrefab.GetType()} already exists!");
+                return;
+            }
+
+            WeaponBase newWeapon = Instantiate(weaponPrefab, weaponHolder.transform);
+            newWeapon.name = weaponPrefab.name;
+            currentWeapons.Add(newWeapon);
+        }
     }
 
     public List<WeaponBase> GetCurrentWeapons()
     {
-        return currentWeapons;
+        List<WeaponBase> allWeapons = new List<WeaponBase>();
+        allWeapons.AddRange(currentWeapons);
+        allWeapons.AddRange(currentPassiveWeapons);
+        return allWeapons;
+    }
+    public List<PassiveWeaponBase> GetCurrentPassiveWeapons()
+    {
+        return currentPassiveWeapons;
     }
 
 #if UNITY_EDITOR

@@ -4,6 +4,12 @@ using UnityEngine;
 
 public abstract class WeaponBase : MonoBehaviour
 {
+    public enum WeaponType
+    {
+        Active,
+        Passive
+    }
+
     [System.Serializable]
     public class WeaponStats
     {
@@ -45,6 +51,7 @@ public abstract class WeaponBase : MonoBehaviour
 
     [SerializeField] protected WeaponData weaponData;
     [SerializeField] protected WeaponStats baseStats;
+    [SerializeField] protected WeaponType weaponType;
     protected WeaponLevelUpgrade[] levelUpgrades;
 
     protected PlayerScript player;
@@ -61,6 +68,7 @@ public abstract class WeaponBase : MonoBehaviour
     public string WeaponName => weaponData.weaponName;
     public Sprite icon => weaponData.icon;
     public string Description => weaponData.description;
+    public WeaponType Type => weaponType;
 
     public virtual void LevelUp()
     {
@@ -111,14 +119,17 @@ public abstract class WeaponBase : MonoBehaviour
 
     protected virtual void Update()
     {
-        if(Time.time > nextAttackTime)
+        if (weaponType == WeaponType.Active && Time.time > nextAttackTime)
         {
             Attack();
             nextAttackTime = Time.time + GetModifiedCooldown();
         }
     }
 
-    protected abstract void Attack();
+    protected virtual void Attack()
+    {
+
+    }
 
     protected float GetModifiedDamage()
     {
