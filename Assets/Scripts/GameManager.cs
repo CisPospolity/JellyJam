@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +18,8 @@ public class GameManager : MonoBehaviour
     private int currentWaveIndex = 0;
     private float nextSpawnTime = 0f;
 
+    public event Action<float> OnTimerUpdate;
+
     private void Start()
     {
         if(mainCamera == null)
@@ -30,10 +33,13 @@ public class GameManager : MonoBehaviour
         if (timeSinceStart < maxTimer)
         {
             timeSinceStart += Time.deltaTime;
-        } else
+            OnTimerUpdate?.Invoke(timeSinceStart);
+        } else if(timeSinceStart > maxTimer)
         {
             timeSinceStart = maxTimer;
+            OnTimerUpdate?.Invoke(timeSinceStart);
         }
+
         CheckWaveProgresion();
         HandleSpawning();
     }
@@ -68,7 +74,7 @@ public class GameManager : MonoBehaviour
 
         if (availableOneTimeEnemies.Count > 0)
         {
-            int randomIndex = Random.Range(0, availableOneTimeEnemies.Count);
+            int randomIndex = UnityEngine.Random.Range(0, availableOneTimeEnemies.Count);
             EnemySpawnData enemyData = availableOneTimeEnemies[randomIndex];
             Vector3 groundPoint = GetSpawnPositionOnGround();
 
@@ -83,7 +89,7 @@ public class GameManager : MonoBehaviour
         List<EnemySpawnData> regularEnemies = currentWave.enemiesToSpawn.FindAll(e => !e.isOneTimeSpawn);
         if (regularEnemies.Count > 0)
         {
-            int randomEnemyIndex = Random.Range(0, regularEnemies.Count);
+            int randomEnemyIndex = UnityEngine.Random.Range(0, regularEnemies.Count);
             Vector3 groundPoint = GetSpawnPositionOnGround();
             if (groundPoint != Vector3.zero)
             {
@@ -118,9 +124,9 @@ public class GameManager : MonoBehaviour
 
     private float SelectFromTwoRanges()
     {
-        var var1 = Random.Range(-1.5f, -0.5f);
-        var var2 = Random.Range(1.5f, 2.5f);
-        var var3 = Random.Range(0, 2);
+        var var1 = UnityEngine.Random.Range(-1.5f, -0.5f);
+        var var2 = UnityEngine.Random.Range(1.5f, 2.5f);
+        var var3 = UnityEngine.Random.Range(0, 2);
         if(var3 == 0)
         {
             return var1;
@@ -135,7 +141,7 @@ public class GameManager : MonoBehaviour
         Vector3 spawnPos = mainCamera.transform.position;
         spawnPos.y = 0;
 
-        Vector3 viewportPoint = new Vector3(SelectFromTwoRanges(), SelectFromTwoRanges(), Random.Range(-2f,10f));
+        Vector3 viewportPoint = new Vector3(SelectFromTwoRanges(), SelectFromTwoRanges(), UnityEngine.Random.Range(-2f,10f));
         Vector3 worldPoint = Camera.main.ViewportToWorldPoint(viewportPoint);
 
         Vector3 rayStart = new Vector3(worldPoint.x, raycastHeight, worldPoint.z);

@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,8 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private Transform iconHolder;
     [SerializeField] private Image iconPrefab;
     [SerializeField] private Image ultCooldown;
+    [SerializeField] private GameManager gameManager;
+    [SerializeField] private TMP_Text timerText;
 
     private void Start()
     {
@@ -18,6 +21,15 @@ public class PlayerUI : MonoBehaviour
         player.OnLevelUp += UpdateCooldown;
         player.GetComponent<PlayerMovement>().OnUlt += UpdateCooldown;
         player.GetComponent<WeaponManager>().OnActiveWeaponAdded += AddActiveWeaponIcon;
+        gameManager.OnTimerUpdate += UpdateText;
+    }
+
+    private void UpdateText(float time)
+    {
+        int minutes = Mathf.FloorToInt(time / 60f);
+        int seconds = Mathf.FloorToInt(time % 60f);
+        var text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        timerText.text = text;
     }
 
     public void UpdateCooldown()
@@ -50,6 +62,7 @@ public class PlayerUI : MonoBehaviour
         player.OnExpChanged -= SetExpSlider;
         player.OnLevelUp -= UpdateCooldown;
         player.GetComponent<PlayerMovement>().OnUlt -= UpdateCooldown;
+        gameManager.OnTimerUpdate -= UpdateText;
 
     }
 }

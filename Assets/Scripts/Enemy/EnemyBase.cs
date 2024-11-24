@@ -13,6 +13,7 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
     [SerializeField] private Vector3 spawnOffset;
     [SerializeField] private int expValue = 1;
     [SerializeField] private ExpObj expObject;
+    [SerializeField] private Vector3 coinSpawnOffset = Vector3.zero;
     public Vector3 SpawnOffset => spawnOffset;
     public float MoveSpeed => moveSpeed;
 
@@ -43,7 +44,7 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
         {
             if(expObject != null)
             {
-                var spawnedExp = Instantiate(expObject, transform.position, Quaternion.identity);
+                var spawnedExp = Instantiate(expObject, transform.position + coinSpawnOffset, Quaternion.identity);
                 spawnedExp.SetExpValue(expValue);
             }
             Destroy(gameObject);

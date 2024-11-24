@@ -52,10 +52,6 @@ public class ShurikenProjectile : MonoBehaviour
         if (damagable != null)
         {
             damagable.Damage((int)damage);
-            if(!returning)
-            {
-                Return();
-            }
         }
 
         if(returning && other.CompareTag("Player"))
