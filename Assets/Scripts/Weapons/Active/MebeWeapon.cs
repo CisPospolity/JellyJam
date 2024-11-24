@@ -39,7 +39,6 @@ public class MebeWeapon : WeaponBase
         startTime = Time.time;
         mebe = Instantiate(mebePrefab, player.transform.position, Quaternion.identity, null).transform;
         initialOffset = relativeOffset;
-        startTime = Time.time;
 
         mebe.position = GetTargetPosition();
     }
