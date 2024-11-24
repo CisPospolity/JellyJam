@@ -11,12 +11,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<EnemyWave> waves;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private float spawnOffset = 2f;
-    [SerializeField] private float spawnInterval = 0.2f;
+    [SerializeField] private float defaultSpawnInterval = 0.2f;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float raycastHeight = 20f;
 
+    private Dictionary<EnemySpawnData, float> nextSpawnTimes = new Dictionary<EnemySpawnData, float>();
     private int currentWaveIndex = 0;
-    private float nextSpawnTime = 0f;
 
     public event Action<float> OnTimerUpdate;
 
@@ -25,6 +25,22 @@ public class GameManager : MonoBehaviour
         if(mainCamera == null)
         {
             mainCamera = Camera.main;
+        }
+        InitializeSpawnTimes();
+    }
+
+    private void InitializeSpawnTimes()
+    {
+        nextSpawnTimes.Clear();
+        foreach (var wave in waves)
+        {
+            foreach (var enemy in wave.enemiesToSpawn)
+            {
+                if (!nextSpawnTimes.ContainsKey(enemy))
+                {
+                    nextSpawnTimes[enemy] = 0f;
+                }
+            }
         }
     }
 
@@ -58,43 +74,40 @@ public class GameManager : MonoBehaviour
     {
         if (currentWaveIndex >= waves.Count) return;
 
-        if (Time.time >= nextSpawnTime)
-        {
-            SpawnRandomEnemyFromCurrentWave();
-            nextSpawnTime = Time.time + spawnInterval;
-        }
-    }
-
-    private void SpawnRandomEnemyFromCurrentWave()
-    {
         EnemyWave currentWave = waves[currentWaveIndex];
+        float currentTime = Time.time;
 
+        // Handle one-time spawns
         List<EnemySpawnData> availableOneTimeEnemies = currentWave.enemiesToSpawn.FindAll(
             e => e.isOneTimeSpawn && !e.hasBeenSpawned);
 
-        if (availableOneTimeEnemies.Count > 0)
+        foreach (var enemy in availableOneTimeEnemies)
         {
-            int randomIndex = UnityEngine.Random.Range(0, availableOneTimeEnemies.Count);
-            EnemySpawnData enemyData = availableOneTimeEnemies[randomIndex];
-            Vector3 groundPoint = GetSpawnPositionOnGround();
-
-            if (groundPoint != Vector3.zero)
+            if (currentTime >= nextSpawnTimes[enemy])
             {
-                SpawnEnemyWithOffset(enemyData.enemyPrefab, groundPoint);
-                enemyData.hasBeenSpawned = true;
+                SpawnEnemy(enemy);
+                enemy.hasBeenSpawned = true;
             }
-            return;
         }
 
+        // Handle regular spawns
         List<EnemySpawnData> regularEnemies = currentWave.enemiesToSpawn.FindAll(e => !e.isOneTimeSpawn);
-        if (regularEnemies.Count > 0)
+        foreach (var enemy in regularEnemies)
         {
-            int randomEnemyIndex = UnityEngine.Random.Range(0, regularEnemies.Count);
-            Vector3 groundPoint = GetSpawnPositionOnGround();
-            if (groundPoint != Vector3.zero)
+            if (currentTime >= nextSpawnTimes[enemy])
             {
-                SpawnEnemyWithOffset(regularEnemies[randomEnemyIndex].enemyPrefab, groundPoint);
+                SpawnEnemy(enemy);
+                nextSpawnTimes[enemy] = currentTime + (enemy.spawnInterval > 0 ? enemy.spawnInterval : defaultSpawnInterval);
             }
+        }
+    }
+
+    private void SpawnEnemy(EnemySpawnData enemyData)
+    {
+        Vector3 groundPoint = GetSpawnPositionOnGround();
+        if (groundPoint != Vector3.zero)
+        {
+            SpawnEnemyWithOffset(enemyData.enemyPrefab, groundPoint);
         }
     }
 
@@ -121,6 +134,7 @@ public class GameManager : MonoBehaviour
             enemy.transform.rotation = Quaternion.LookRotation(directionToCenter);
         }
     }
+
 
     private float SelectFromTwoRanges()
     {
@@ -175,4 +189,5 @@ public class EnemySpawnData
     public bool isOneTimeSpawn;
     [HideInInspector]
     public bool hasBeenSpawned;
+    public float spawnInterval = 0f;
 }
