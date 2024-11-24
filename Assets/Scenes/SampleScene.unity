@@ -369,7 +369,7 @@ MonoBehaviour:
   waves:
   - timeToActivate: 0
     enemiesToSpawn:
-    - enemyPrefab: {fileID: 2588630775770154171, guid: 7db7ba587346cd1408a3a126a637ad33,
+    - enemyPrefab: {fileID: 1354248783175002257, guid: a7e5ab5e581ece242af4298fd9f8e7c2,
         type: 3}
       isOneTimeSpawn: 0
       hasBeenSpawned: 0

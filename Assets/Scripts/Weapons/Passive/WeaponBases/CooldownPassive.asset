@@ -10,50 +10,42 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82552777b0e038b4c8f1dc941aa40382, type: 3}
-  m_Name: DamagePassiveData
+  m_Name: CooldownPassive
   m_EditorClassIdentifier: 
-  weaponName: "Wi\u0119ksze obra\u017Cenia"
-  icon: {fileID: 21300000, guid: 1c85a9f1ebbbfe04e851cc25d07e5079, type: 3}
-  description: "Wszystkie obra\u017Cenia +10%"
-  weaponPrefab: {fileID: 7870311476739627392, guid: ddb7d840677e9924daabbf569523ac05,
+  weaponName: Czas odnowienia
+  icon: {fileID: 0}
+  description: Czasy odnowienia -10%
+  weaponPrefab: {fileID: 2595541316825005755, guid: 82933f0407ad13643bba923b702145f1,
     type: 3}
   levelUpgrades:
-  - description: "Wszystkie obra\u017Cenia +10%"
+  - description: Czasy odnowienia -10%
     statModifiers:
-      baseDamage: 10
-      baseCooldown: 0
+      baseDamage: 0
+      baseCooldown: -10
       baseArea: 0
       baseProjectileSpeed: 0
       baseProjectileCount: 0
       baseDuration: 0
-  - description: "Wszystkie obra\u017Cenia +10%"
+  - description: Czasy odnowienia -10%
     statModifiers:
-      baseDamage: 10
-      baseCooldown: 0
+      baseDamage: 0
+      baseCooldown: -10
       baseArea: 0
       baseProjectileSpeed: 0
       baseProjectileCount: 0
       baseDuration: 0
-  - description: "Wszystkie obra\u017Cenia +15%"
+  - description: Czasy odnowienia -10%
     statModifiers:
-      baseDamage: 15
-      baseCooldown: 0
+      baseDamage: 0
+      baseCooldown: -10
       baseArea: 0
       baseProjectileSpeed: 0
       baseProjectileCount: 0
       baseDuration: 0
-  - description: "Wszystkie obra\u017Cenia +15%"
+  - description: Czasy odnowienia -10%
     statModifiers:
-      baseDamage: 15
-      baseCooldown: 0
-      baseArea: 0
-      baseProjectileSpeed: 0
-      baseProjectileCount: 0
-      baseDuration: 0
-  - description: "Wszystkie obra\u017Cenia +20%"
-    statModifiers:
-      baseDamage: 20
-      baseCooldown: 0
+      baseDamage: 0
+      baseCooldown: -10
       baseArea: 0
       baseProjectileSpeed: 0
       baseProjectileCount: 0

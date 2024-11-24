@@ -100,6 +100,13 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
+        Invoke("AttackUlt", 1f);
+        animator.SetTrigger("ult");
+        OnUlt?.Invoke();
+    }
+
+    private void AttackUlt()
+    {
         Collider[] hits = Physics.OverlapSphere(transform.position, 20f);
 
         foreach (var hit in hits)
@@ -109,8 +116,6 @@ public class PlayerMovement : MonoBehaviour
                 enemy.Damage(50);
             }
         }
-        animator.SetTrigger("ult");
-        OnUlt?.Invoke();
     }
 
     private void SetMovement(Vector2 axis)

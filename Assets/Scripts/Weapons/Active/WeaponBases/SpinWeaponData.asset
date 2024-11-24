@@ -12,9 +12,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82552777b0e038b4c8f1dc941aa40382, type: 3}
   m_Name: SpinWeaponData
   m_EditorClassIdentifier: 
-  weaponName: Spin Weapon
+  weaponName: "M\u0142ot Tanuki"
   icon: {fileID: 21300000, guid: f5b5e97b734a3a64d9cb98f563946253, type: 3}
   description: 
   weaponPrefab: {fileID: 5456915935410485788, guid: f07b5f33f5cda7e43b3265d41b4d69e1,
     type: 3}
-  levelUpgrades: []
+  levelUpgrades:
+  - description: "Czas odnowienia -0.5s\nObra\u017Cenia +1"
+    statModifiers:
+      baseDamage: 1
+      baseCooldown: -0.5
+      baseArea: 0
+      baseProjectileSpeed: 0
+      baseProjectileCount: 0
+      baseDuration: 0
+  - description: "Czas odnowienia -0.5s\nObra\u017Cenia +1"
+    statModifiers:
+      baseDamage: 1
+      baseCooldown: -0.5
+      baseArea: 0
+      baseProjectileSpeed: 0
+      baseProjectileCount: 0
+      baseDuration: 0
+  - description: "Czas odnowienia -0.5s\nObra\u017Cenia +1"
+    statModifiers:
+      baseDamage: 1
+      baseCooldown: -0.5
+      baseArea: 0
+      baseProjectileSpeed: 0
+      baseProjectileCount: 0
+      baseDuration: 0
+  - description: "Czas odnowienia -0.5s\nObra\u017Cenia +1"
+    statModifiers:
+      baseDamage: 1
+      baseCooldown: -0.5
+      baseArea: 0
+      baseProjectileSpeed: 0
+      baseProjectileCount: 0
+      baseDuration: 0

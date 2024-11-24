@@ -12,17 +12,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82552777b0e038b4c8f1dc941aa40382, type: 3}
   m_Name: DartsWeapoData
   m_EditorClassIdentifier: 
-  weaponName: Darts Weapon
+  weaponName: Rzutki
   icon: {fileID: 21300000, guid: 45d9278b928184e4e8630fdec9ac37c3, type: 3}
-  description: 
+  description: "Rzutki zadaj\u0105ce niskie obra\u017Cenia ale przebijaj\u0105 przeciwnik\xF3w"
   weaponPrefab: {fileID: 645710885804594091, guid: 40cd247858e33de498aa289ab8acacd7,
     type: 3}
   levelUpgrades:
-  - description: 
+  - description: Dodatkowa rzutka
     statModifiers:
       baseDamage: 0
       baseCooldown: 0
       baseArea: 0
       baseProjectileSpeed: 0
       baseProjectileCount: 1
+      baseDuration: 0
+  - description: Dodatkowa rzutka
+    statModifiers:
+      baseDamage: 0
+      baseCooldown: 0
+      baseArea: 0
+      baseProjectileSpeed: 0
+      baseProjectileCount: 1
+      baseDuration: 0
+  - description: "Wi\u0119ksze rzutki"
+    statModifiers:
+      baseDamage: 0
+      baseCooldown: 0
+      baseArea: 0.5
+      baseProjectileSpeed: 0
+      baseProjectileCount: 0
+      baseDuration: 0
+  - description: "Wi\u0119ksze i szybsze rzutki"
+    statModifiers:
+      baseDamage: 0
+      baseCooldown: 0
+      baseArea: 0.5
+      baseProjectileSpeed: 2
+      baseProjectileCount: 0
       baseDuration: 0

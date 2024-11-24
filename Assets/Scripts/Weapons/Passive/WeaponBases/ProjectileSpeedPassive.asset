@@ -10,43 +10,35 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82552777b0e038b4c8f1dc941aa40382, type: 3}
-  m_Name: ShurikenWeaponData
+  m_Name: ProjectileSpeedPassive
   m_EditorClassIdentifier: 
-  weaponName: Szuriken
-  icon: {fileID: 21300000, guid: a272adcb0f07a1141a5411f3a9f708d3, type: 3}
-  description: "Szuriken, kt\xF3ry wraca do gracza"
-  weaponPrefab: {fileID: 2153498872456688333, guid: daca75eaa6c4ae44494480fda5ae84c9,
+  weaponName: "Szybko\u015B\u0107 pocisk\xF3w"
+  icon: {fileID: 21300000, guid: 1c85a9f1ebbbfe04e851cc25d07e5079, type: 3}
+  description: "Szybko\u015B\u0107 pocisk\xF3w +10%"
+  weaponPrefab: {fileID: 2595541316825005755, guid: e3ba3414cbdae914a8b58ea4ba7bf704,
     type: 3}
   levelUpgrades:
-  - description: Dodatkowy szuriken
+  - description: "Szybko\u015B\u0107 pocisk\xF3w +10%"
     statModifiers:
       baseDamage: 0
       baseCooldown: 0
       baseArea: 0
-      baseProjectileSpeed: 0
-      baseProjectileCount: 1
-      baseDuration: 0
-  - description: "Obra\u017Cenia +2"
-    statModifiers:
-      baseDamage: 2
-      baseCooldown: 0
-      baseArea: 0
-      baseProjectileSpeed: 0
+      baseProjectileSpeed: 10
       baseProjectileCount: 0
       baseDuration: 0
-  - description: "Obra\u017Cenia +2"
-    statModifiers:
-      baseDamage: 2
-      baseCooldown: 0
-      baseArea: 0
-      baseProjectileSpeed: 0
-      baseProjectileCount: 0
-      baseDuration: 0
-  - description: "Wielko\u015B\u0107 x2"
+  - description: "Szybko\u015B\u0107 pocisk\xF3w +10%"
     statModifiers:
       baseDamage: 0
       baseCooldown: 0
-      baseArea: 1
-      baseProjectileSpeed: 0
+      baseArea: 0
+      baseProjectileSpeed: 10
+      baseProjectileCount: 0
+      baseDuration: 0
+  - description: "Szybko\u015B\u0107 pocisk\xF3w +20%"
+    statModifiers:
+      baseDamage: 0
+      baseCooldown: 0
+      baseArea: 0
+      baseProjectileSpeed: 20
       baseProjectileCount: 0
       baseDuration: 0

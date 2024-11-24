@@ -12,9 +12,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82552777b0e038b4c8f1dc941aa40382, type: 3}
   m_Name: AuraWeaponData
   m_EditorClassIdentifier: 
-  weaponName: Aura Weapon
+  weaponName: Aura
   icon: {fileID: 21300000, guid: 834b9ed08e1a8db4490fd5eaef6db339, type: 3}
-  description: 
+  description: "Aura zadaj\u0105ca obra\u017Cenia wok\u0142 gracza"
   weaponPrefab: {fileID: 5959148762947895976, guid: c36c14b21b418ac41859dbb63189ea44,
     type: 3}
-  levelUpgrades: []
+  levelUpgrades:
+  - description: "Zasi\u0119g +1\nObra\u017Cenia +0.5"
+    statModifiers:
+      baseDamage: 0.5
+      baseCooldown: 0
+      baseArea: 1
+      baseProjectileSpeed: 0
+      baseProjectileCount: 0
+      baseDuration: 0
+  - description: "Zasi\u0119g +1\nObra\u017Cenia +0.5"
+    statModifiers:
+      baseDamage: 0.5
+      baseCooldown: 0
+      baseArea: 1
+      baseProjectileSpeed: 0
+      baseProjectileCount: 0
+      baseDuration: 0
+  - description: "Zasi\u0119g +2"
+    statModifiers:
+      baseDamage: 0
+      baseCooldown: 0
+      baseArea: 2
+      baseProjectileSpeed: 0
+      baseProjectileCount: 0
+      baseDuration: 0
