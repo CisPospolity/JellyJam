@@ -13,6 +13,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private int currentExp = 0;
     [SerializeField] private int expToNextLevel = 5;
     [SerializeField] private float invincibilityCooldown = 0.5f;
+    [SerializeField] private GameObject deathScreen;
     private float nextVulnerableTime = 0f;
     private LevelUpManager levelUpManager;
 
@@ -92,6 +93,7 @@ public class PlayerScript : MonoBehaviour
     public delegate void OnHealthChangedDelegate(float health, float maxHealth);
     public event OnHealthChangedDelegate OnHealthChanged;
     public event Action OnLevelUp;
+    public event Action OnDeath;
 
     private void Awake()
     {
@@ -127,6 +129,18 @@ public class PlayerScript : MonoBehaviour
         health -= damage;
         nextVulnerableTime = Time.time + invincibilityCooldown;
         OnHealthChanged?.Invoke(health, maxHealth);
+
+        if(health <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        Time.timeScale = 0;
+        deathScreen.SetActive(true);
+        OnDeath?.Invoke();
     }
 
     public void AddExp(int amount)

@@ -21,7 +21,14 @@ public class PlayerUI : MonoBehaviour
         player.OnLevelUp += UpdateCooldown;
         player.GetComponent<PlayerMovement>().OnUlt += UpdateCooldown;
         player.GetComponent<WeaponManager>().OnActiveWeaponAdded += AddActiveWeaponIcon;
+        player.OnDeath += TurnOff;
         gameManager.OnTimerUpdate += UpdateText;
+    }
+
+    private void TurnOff()
+    {
+        gameManager.OnTimerUpdate -= UpdateText;
+        gameObject.SetActive(false);
     }
 
     private void UpdateText(float time)
@@ -63,6 +70,8 @@ public class PlayerUI : MonoBehaviour
         player.OnLevelUp -= UpdateCooldown;
         player.GetComponent<PlayerMovement>().OnUlt -= UpdateCooldown;
         gameManager.OnTimerUpdate -= UpdateText;
+        player.OnDeath -= TurnOff;
+
 
     }
 }

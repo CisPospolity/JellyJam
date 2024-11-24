@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float defaultSpawnInterval = 0.2f;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float raycastHeight = 20f;
+    [SerializeField] private PlayerScript player;
 
     private Dictionary<EnemySpawnData, float> nextSpawnTimes = new Dictionary<EnemySpawnData, float>();
     private int currentWaveIndex = 0;
@@ -46,6 +47,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (player.Health <= 0) return;
         if (timeSinceStart < maxTimer)
         {
             timeSinceStart += Time.deltaTime;
