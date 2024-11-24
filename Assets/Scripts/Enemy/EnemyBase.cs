@@ -3,17 +3,17 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public abstract class EnemyBase : MonoBehaviour, IDamagable
 {
-    [SerializeField] private int health = 5;
-    [SerializeField] private float moveSpeed = 3;
-    [SerializeField] private int damage = 5;
-    [SerializeField] private float damageRate = 0.5f;
-    private float nextDamageTime;
-    private PlayerScript player;
-    private Rigidbody rb;
-    [SerializeField] private Vector3 spawnOffset;
-    [SerializeField] private int expValue = 1;
-    [SerializeField] private ExpObj expObject;
-    [SerializeField] private Vector3 coinSpawnOffset = Vector3.zero;
+    [SerializeField] protected int health = 5;
+    [SerializeField] protected float moveSpeed = 3;
+    [SerializeField] protected int damage = 5;
+    [SerializeField] protected float damageRate = 0.5f;
+    protected float nextDamageTime;
+    protected PlayerScript player;
+    protected Rigidbody rb;
+    [SerializeField] protected Vector3 spawnOffset;
+    [SerializeField] protected int expValue = 1;
+    [SerializeField] protected ExpObj expObject;
+    [SerializeField] protected Vector3 coinSpawnOffset = Vector3.zero;
     public Vector3 SpawnOffset => spawnOffset;
     public float MoveSpeed => moveSpeed;
 
