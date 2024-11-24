@@ -52,7 +52,8 @@ MonoBehaviour:
     baseProjectileSpeed: 10
     baseProjectileCount: 2
     baseDuration: 1
+  weaponType: 0
   currentLevel: 1
-  projectile: {fileID: 9043385121838544192, guid: e1364318c49d0284eaa4d78df106ab76,
+  projectile: {fileID: 4405569055877442461, guid: 20d14cb9c1b6aff4788a7458b28d624a,
     type: 3}
   projectileDelayBetween: 0.1

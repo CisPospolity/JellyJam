@@ -49,9 +49,10 @@ MonoBehaviour:
     baseDamage: 1
     baseCooldown: 1
     baseArea: 1
-    baseProjectileSpeed: 5
+    baseProjectileSpeed: 10
     baseProjectileCount: 1
     baseDuration: 1
+  weaponType: 0
   currentLevel: 1
   projectile: {fileID: 9043385121838544192, guid: e1364318c49d0284eaa4d78df106ab76,
     type: 3}
