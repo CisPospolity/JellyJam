@@ -92,9 +92,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void UseUlt()
     {
-        if(levelCounter>= levelsNeededForUlt)
+        if(levelCounter >= levelsNeededForUlt)
         {
             levelCounter = 0;
+        } else
+        {
+            return;
         }
 
         Collider[] hits = Physics.OverlapSphere(transform.position, 20f);
