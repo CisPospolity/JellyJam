@@ -621,7 +621,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -325}
+  m_AnchoredPosition: {x: 0, y: -283}
   m_SizeDelta: {x: 467, y: 238}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1296296976
@@ -895,8 +895,9 @@ MonoBehaviour:
   m_text: "WSAD - Sterowanie\n\nSpacja - Umiej\u0119tno\u015B\u0107 specialna (raz
     co 10 poziom\xF3w)\n\nEsc - powr\xF3t do menu"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2e3166762fb62fd4b965ce70eee064d5, type: 2}
+  m_sharedMaterial: {fileID: 760258583005514096, guid: 2e3166762fb62fd4b965ce70eee064d5,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1076,7 +1077,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: SampleScene
+          m_StringArgument: Mapa
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2117250231
